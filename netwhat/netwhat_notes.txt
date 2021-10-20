@@ -1,0 +1,193 @@
+Home router : 
+
+	Typically has an "inside" and an "outside". 
+	The outside is the Internet connection, which connects to a port on the router which is often called the WAN (Wide Area Network) port.
+	The inside is the local network or LAN (Local Area Network). A router often has multiple ports that belong to the inside where you can connect
+	different devices.
+
+
+Routing :
+
+	A router directs data traffic to its destination. 
+	The internet is more or less just routers interconnected with each others. 
+	ISPs operate their own set of routers. ISPs thus need to cooperate and allow their routers to communicate with each other.
+	Computers use IP (Internet Protocol) addresses to communicate.
+
+
+IP addresses : 
+
+	IP addresses consist of two main parts : IP network, and addresses within the IP network (or host addresses).
+	In total there are 4 parts, each being a value between 0-255.
+	To communicate, devices connected to the same local network need IP addresses belonging to the same IP network.
+	Computers belonging to different networks communicate via routers.
+	Subnet masks determine which part of the IP address indicates the network it belongs to.
+	A subnet mask consists of 4 values between 0-255.
+	In its simplest form, the part where the subnet mask value is 255 belongs the the network address and the part where the value is 0 belongs to the host 
+	address.
+	The network address is the first (lowest numbered) address on the IP network.
+
+
+Default Gateway :
+
+	A Default Gateway is a router that can connect to more than one IP network and can route traffic between those IP networks.
+	The router will have its own IP address on each IP network that it connects to.
+	When the router hands out an IP address and a Subnet Mask to the computer it also sends out its own IP address to the computer and tells the computer
+	to use that address as its Default Gateway.
+	By sending the traffic to the default gateway the computer is delegating responsibility for forwarding the traffic to the router.
+
+
+Domaine Name System : 
+
+	The translation between domaine names and IP addresses is handled by the DNS.
+	DNS is served by a large number of servers on the Internet which can reply to queries about domain names.
+	When the computer gets its IP address from the home router, then the router also passes along information about which DNS server  the computer
+	should use.
+
+
+Dynamic Host Configuration Protocol : 
+
+	A protocol used by home routers to automatically hand out configuration to computers and other devices on the network.
+	When your router sees a DHCP request, it will hand out an available IP address from its pool of free IP addresses, together with the other details
+	that the computer needs (subnet mask, Default Gateway, DNS).
+
+
+Public and private addresses :
+
+	All IP addresses in use must be unique and must not be used anywhere else on the Internet.
+	Exception : all IP addresses beginning with “192.168”, "10" or "172.16" to "172.31" which belong to a special category of IP addresses
+	that are commonly called Private IP addresses.
+	They are reserved for local use within LAN networks, and can thus be reused in many places.
+	To avoid conflicts arising from this, Network Address Translation is used.
+
+
+Subnetwork :
+	A Subnet is a logical division of an IP network.
+	For example, 198.51.100.0/24 is the prefix of the Internet Protocol version 4 network starting at the given address, having 24 bits allocated
+	for the network prefix, and the remaining 8 bits reserved for host addressing.
+	Addresses in the range 198.51.100.0 to 198.51.100.255 belong to this network.
+	For IPv4, a network may also be characterized by its subnet mask or netmask, which is the bitmask that when applied by a bitwise AND operation
+	to any IP address in the network, yields the routing prefix.
+	For example, 255.255.255.0 is the subnet mask for the prefix 198.51.100.0/24.
+
+
+Network Address Translation :
+
+	The number of IP addresses available is around 4 billion. Each person uses multiple public IP addresses.
+	The solution to this problem is the Private IP address space that can be reused over and over without limitation.
+	But these private IP addresses cannot be used on the internet, to avoid conflicts.
+	The solution to that problem is to let many private IP addresses share one single public IP address. This is where NAT comes in play.
+	When a computer wants to communicate it sends off a packet with data. The packet always has two IP addresses inscribed in the envelope
+	or header of the packet : 
+		Source address : the IP address of the sender.
+		Destination address : the IP address of the receiver.
+	When data is sent from the home network to the internet, the home router translates the private IP into its public IP address, letting all
+	clients on the LAN share this public IP address.
+	If several clients are operating at the same time on the LAN, the home router will keep track of what traffic belongs to which computer.
+	It is able to do so by using Ports.
+
+
+UDP and TCP :
+
+	UDP = User Datagram Protocol
+	TCP = Transmission Control Protocol
+	Different programs and services have very different requirements regarding how they prefer that traffic should be sent over the network.
+	To some programs, it is extremely important that not a single data packet is lost, and that no packets are received in the wrong order.
+	Other programs might not care if some errors or packet losses occur. Instead, they might prefer that the traffic is just simply being sent
+	as quickly as possible.
+	TCP and UDP are Transport Protocols that govern how traffic is sent over the network.
+	A protocol is a compilation of information regarding decisions on how something should be performed.
+	TCP is absolutely packed with functions that make sure that traffic will arrive in the correct order, that no packets are lost, that any lost packets
+	are automatically sent again, and so on.
+	UDP, on the other hand, is designed with speed in mind. It has very few safeguards and it doesn’t care if packets are lost or arrive in the wrong order.
+	Each UDP or TCP message has a destination port, but also a source port. The source port can be used by routers and firewalls in the network to distinguish
+	between different communication flows or sessions since each session will have a different random source port associated with it.
+	The source ports are randomised by the computer, which means that each session thus will have a unique combination of IP addresses and ports
+	that the router can remember and associate with each ongoing traffic session.
+
+
+
+Ports :
+
+	Used to give addresses to different services.
+	A service is usually a program that is constantly running in the background on the computer.
+	Each program that wants to be able to receive network connections and data packets will require its own unique port.
+	The programs and services that you start on a computer will tell the OS which ports that the service would like to listen to.
+	The OS will then start listening for traffic to that port, and if any such traffic arrives at the computer then the OS will forward that traffic to
+	the correct program.
+	There are Internet standards. A web server for example almost always listens for traffic on port 80, and a secure Web Server listens on port 443.
+	For a DNS server it's 53/UDP.
+	Since applications always listen to a specific Port but also a specific Transport Protocol (UDP or TCP), then you always have to know not just which port
+	is used, but also which Transport Protocol the program uses.
+
+
+MAC Addresses :
+
+	A MAC address consists of 12 hexadecimal characters.
+	When a computer sends out network traffic the traffic has both a source and destination IP address, but it also has a source and destination MAC address.
+	MAC addresses hold information about the next hop destination in the local LAN network.
+	FF:FF:FF:FF:FF:FF is the broadcast MAC address.
+	All other equipment on the LAN will then understand that the traffic is a broadcast that is directed at everybody else within the LAN.
+
+
+Address Resolution Protocol :
+
+	ARP is used to associate MAC addresses with IP addresses and is a way for a computer to look up an unknown MAC address for a device that it wants
+	fo communicate with.
+	ARP requests are always sent as broadcasts because we don’t know what MAC address we mant to send the message to.
+	Every time a computer receives an ARP reply it will save the response for at least a few minutes in an ARP table.
+
+
+The Open Systems Interconnection model :
+
+	OSI is a conceptual model that standrdises the communication functions of a computing system. 
+	Its goal is interoperability.
+	Developped in the late 70s, failed to garner reliance by the software architects in the design of the early Internet.
+	It partitions the flow of data into 7 abstraction layers.
+	Within each layer, one or more entities implement its functionality. 
+	Each entity interacted directly only with the layer immediately beneath it and provided facilities for use by the layer above it.
+
+	Layer 1 : Physical
+		Transmission and reception of raw bit streams over a physical medium
+
+	Layer 2 : Data link
+		Reliable transmission of data frames between two nodes connected by a physical layer
+
+	Layer 3 : Network
+		Structuring and managing a multi-node network, including addressing, routing and traffic control
+
+	Layer 4 : Transport
+		Reliable transmission of data segments between points on a network, including segmentation, acknowledgement and multiplexing
+
+	Layer 5 : Session
+		Managing communication sessions, i.e., continuous exchange of information in the form of multiple back-and-forth transmissions between two nodes
+
+	Layer 6 : Presentation
+		Translation of data between a networking service and an application; including character encoding, data compression and encryption/decryption
+
+	Layer 7 : Application
+		High-level APIs, including resource sharing, remote file access
+
+
+The Internet Protocol : 
+
+	Commomly known as TCP/IP because the foundational protocols in the suite are TCP and IP.
+	Specifies specifying how data should be packetized, addressed, transmitted, routed, and received.
+	Its functionnalities are organized into 4 abstraction layers.
+
+	Layer 1 : Link layer
+		Contains communication methods for data that remains within a single network segment (link).
+
+	Layer 2 : Internet layer 
+		Provides internetworking between independent networks
+
+	Layer 3 : Transport layer
+		Handles host-to-host commnication.
+
+	Layer 4 : Application layer
+		Provides process-to-process data exchange for applications.
+
+
+
+
+
+

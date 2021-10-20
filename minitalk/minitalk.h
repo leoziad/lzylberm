@@ -6,7 +6,7 @@
 /*   By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:12:41 by lzylberm          #+#    #+#             */
-/*   Updated: 2021/09/08 17:41:20 by lzylberm         ###   ########.fr       */
+/*   Updated: 2021/10/20 17:36:33 by lzylberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
+typedef struct bin_val
+{
+	char	*val;
+	int		count;
+}			t_bin;
+
 t_list		*ft_lstnew(void *content);
 t_list		*ft_lstlast(t_list *lst);
 void		ft_lstadd_back(t_list **lst, t_list *new);
@@ -40,4 +46,5 @@ char	*ft_strdup(char *src);
 void	ft_bzero(void *s, size_t n);
 int		ft_atoi(const char *str);
 char	*ft_strnew(size_t size);
+void	bin_to_char(char *bin_val);
 #endif

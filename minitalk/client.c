@@ -6,43 +6,11 @@
 /*   By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:33:38 by lzylberm          #+#    #+#             */
-/*   Updated: 2021/09/08 18:38:24 by lzylberm         ###   ########.fr       */
+/*   Updated: 2021/10/20 18:42:37 by lzylberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
-
-/*t_list	*char_to_bin(char c)
-{
-	t_list	*bin_val;
-	int	count;
-	
-	count = 1;
-	if (c % 2 == 0)
-		bin_val = ft_lstnew("0");
-	else
-		bin_val = ft_lstnew("1");
-	while (c > 1)
-	{
-		c = c / 2;
-		if (c % 2 == 0)
-		{
-			ft_lstadd_back(&bin_val, ft_lstnew("0"));
-			count++;
-		}
-		else
-		{
-			ft_lstadd_back(&bin_val, ft_lstnew("1"));
-			count++;
-		}
-	}
-	while (count < 8)
-	{
-		ft_lstadd_back(&bin_val, ft_lstnew("0"));
-		count++;
-	}
-	return (bin_val);
-}*/
 
 char	*char_to_bin(char c)
 {
@@ -54,7 +22,7 @@ char	*char_to_bin(char c)
 	if (c % 2 != 0)
 		bin_val[index] = '1';
 	index++;
-	while(c > 1)
+	while (c > 1)
 	{
 		c = c / 2;
 		if (c % 2 != 0)
@@ -91,7 +59,7 @@ int	main(int argc, char **argv)
 				else
 					kill(serv_pid, SIGUSR2);
 				i_bin++;
-				usleep(10);
+				usleep(65);
 			}
 			i_str++;
 		}

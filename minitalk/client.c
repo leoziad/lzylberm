@@ -6,7 +6,7 @@
 /*   By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:33:38 by lzylberm          #+#    #+#             */
-/*   Updated: 2021/10/20 18:42:37 by lzylberm         ###   ########.fr       */
+/*   Updated: 2021/10/21 15:00:39 by lzylberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,38 +32,40 @@ char	*char_to_bin(char c)
 	return (bin_val);
 }
 
+void	bin_sig(char *bin, int serv_pid)
+{
+	int		i_bin;
+
+	i_bin = 0;
+	while (i_bin < 8)
+	{
+		if (bin[i_bin] == '0')
+			kill(serv_pid, SIGUSR1);
+		else
+			kill(serv_pid, SIGUSR2);
+		i_bin++;
+		usleep(65);
+	}
+}
+
 int	main(int argc, char **argv)
 {
-	char	*str;
 	char	*bin;
 	int		i_str;
-	int		i_bin;
 	int		serv_pid;
 
 	bin = NULL;
 	if (argc == 3)
 	{
-		str = ft_strdup(argv[2]);
 		serv_pid = ft_atoi(argv[1]);
 		i_str = 0;
-		if (str == NULL)
-			return (0);
-		while (str[i_str])
+		while (argv[2][i_str])
 		{
-			i_bin = 0;
-			bin = char_to_bin(str[i_str]);
-			while (i_bin < 8)
-			{
-				if (bin[i_bin] == '0')
-					kill(serv_pid, SIGUSR1);
-				else
-					kill(serv_pid, SIGUSR2);
-				i_bin++;
-				usleep(65);
-			}
+			bin = char_to_bin(argv[2][i_str]);
+			bin_sig(bin, serv_pid);
 			i_str++;
+			free (bin);
 		}
 	}
-	free (bin);
 	return (0);
 }

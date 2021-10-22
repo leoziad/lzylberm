@@ -6,7 +6,7 @@
 /*   By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:34:00 by lzylberm          #+#    #+#             */
-/*   Updated: 2021/10/22 11:25:53 by lzylberm         ###   ########.fr       */
+/*   Updated: 2021/10/22 13:20:40 by lzylberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,25 @@ void	rr(t_list **stack_a, t_list **stack_b)
 	}
 }
 
+void	rra(t_list **stack_a) /* marche pas (genre pas du tout)*/
+{
+	t_list	*tmp1;
+	t_list	*tmp2;
+	int		i;
+
+	i = 0;
+	tmp1 = *stack_a;
+	while (i < ft_lstsize(*stack_a) - 1)
+	{
+		tmp1 = tmp1->next;
+		i++;
+	}
+	tmp2 = tmp1->next;
+	tmp1->next = NULL;
+	tmp2->next = *stack_a;
+	*stack_a = tmp2;
+}
+
 int	main(int argc, char **argv)
 {
 	t_list	*stack_a;
@@ -184,32 +203,63 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	printf("stack A : ");
+	printf("\n");
 	print_list(stack_a);
 	printf("\n");
 	printf("swap A\n");
 	sa(&stack_a);
 	printf("stack A : ");
+	printf("\n");
 	print_list(stack_a);
 	printf("\n");
 	printf("push B\n");
 	pb(&stack_a, &stack_b);
 	printf("stack A : ");
+	printf("\n");
 	print_list(stack_a);
 	printf("\n");
 	printf("stack B : ");
+	printf("\n");
 	print_list(stack_b);
 	printf("\n");
 	printf("push A\n");
 	pa(&stack_a, &stack_b);
 	printf("stack A : ");
+	printf("\n");
 	print_list(stack_a);
 	printf("\n");
 	printf("stack B : ");
+	printf("\n");
 	print_list(stack_b);
 	printf("\n");
 	printf("rotate A\n");
 	ra(&stack_a);
 	printf("stack A : ");
+	printf("\n");
+	print_list(stack_a);
+	printf("\n");
+	printf("push B\n");
+	pb(&stack_a, &stack_b);
+	printf("stack B : ");
+	printf("\n");
+	print_list(stack_b);
+	printf("\n");
+	printf("rotate A and B : ");
+	rr(&stack_a, &stack_b);
+	printf("\n");
+	printf("stack A : ");
+	printf("\n");
+	print_list(stack_a);
+	printf("\n");
+	printf("stack B : ");
+	printf("\n");
+	print_list(stack_b);
+	printf("\n");
+	printf("reverse rotate A : ");
+	printf("\n");
+	rra(&stack_a);
+	printf("stack A : ");
+	printf("\n");
 	print_list(stack_a);
 
 	return (0);

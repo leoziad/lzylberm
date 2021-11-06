@@ -6,7 +6,7 @@
 /*   By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:33:38 by lzylberm          #+#    #+#             */
-/*   Updated: 2021/10/21 15:00:39 by lzylberm         ###   ########.fr       */
+/*   Updated: 2021/11/06 16:21:33 by lzylberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int	main(int argc, char **argv)
 	if (argc == 3)
 	{
 		serv_pid = ft_atoi(argv[1]);
+		if (serv_pid < 0)
+			return (0);
 		i_str = 0;
 		while (argv[2][i_str])
 		{

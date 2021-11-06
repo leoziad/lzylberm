@@ -6,7 +6,7 @@
 /*   By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:37:35 by lzylberm          #+#    #+#             */
-/*   Updated: 2021/10/22 13:20:48 by lzylberm         ###   ########.fr       */
+/*   Updated: 2021/11/06 17:50:31 by lzylberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ int	ft_lstsize(t_list *lst)
 	return (result);
 }
 
-int	ft_atoi(const char *str)
+int	ft_atoi(const char *str, char *error)
 {
 	int		index;
 	int		sign;
-	int		result;
+	long long		result;
 
 	index = 0;
 	sign = 1;
@@ -94,10 +94,14 @@ int	ft_atoi(const char *str)
 	}
 	while (str[index] != '\0')
 	{
+		if (str[index] < '0' || str[index] > '9')
+			*error = 1;
 		result = result * 10 + str[index] - 48;
 		index++;
 	}
-	return (result * sign);
+	if ((sign == -1 && result > 2147483648) || (sign == 1 && result > 2147483647))
+		*error = 1;
+	return ((int)result * sign);
 }
 
 void	ft_putchar(char c)

@@ -6,7 +6,7 @@
 /*   By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:37:35 by lzylberm          #+#    #+#             */
-/*   Updated: 2021/11/06 17:50:31 by lzylberm         ###   ########.fr       */
+/*   Updated: 2021/11/17 17:53:30 by lzylberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,4 +122,37 @@ void	ft_putnbr(int nb)
 	if (lnb > 9)
 		ft_putnbr(lnb / 10);
 	ft_putchar(48 + lnb % 10);
+}
+
+void	ft_swap(int *a, int *b)
+{
+	int	tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+void	ft_sort_int_tab(int *tab, int size)
+{
+	int index_a;
+	int index_b;
+
+	index_a = 0;
+	index_b = 1;
+	while (index_a < size - 1)
+	{
+		while (index_b < size)
+		{
+			if (tab[index_a] > tab[index_b])
+			{
+				ft_swap(&tab[index_a], &tab[index_b]);
+				index_b = index_a;
+
+			}
+			index_b++;
+		}
+		index_a++;
+		index_b = index_a;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:34:54 by lzylberm          #+#    #+#             */
-/*   Updated: 2021/11/06 18:48:06 by lzylberm         ###   ########.fr       */
+/*   Updated: 2021/11/17 17:53:32 by lzylberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 typedef struct s_list
 {
 	int				content;
+	int				i;
 	struct s_list	*next;
-	struct s_list	*prev;
 }					t_list;
 
 t_list		*ft_lstnew(int content);
@@ -36,4 +36,6 @@ t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int			ft_atoi(const char *str, char *error);
 void		ft_putchar(char c);
 void		ft_putnbr(int nb);
+void		ft_swap(int *a, int *b);
+void		ft_sort_int_tab(int *tab, int size);
 #endif

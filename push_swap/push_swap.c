@@ -6,7 +6,7 @@
 /*   By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:34:00 by lzylberm          #+#    #+#             */
-/*   Updated: 2021/11/17 17:53:35 by lzylberm         ###   ########.fr       */
+/*   Updated: 2021/11/18 16:44:43 by lzylberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,172 +19,6 @@ void	print_list(t_list *lst)
 		ft_putnbr(lst->i);
 		write(1, " ", 1);
 		lst = lst->next;
-	}
-}
-
-void	sa(t_list **stack_a)
-{
-	t_list	*tmp1;
-	t_list	*tmp2;
-	
-	tmp1 = NULL;
-	tmp2 = NULL;
-	if (ft_lstsize(*stack_a) > 1)
-	{
-		tmp1 = *stack_a;
-		tmp2 = *stack_a;
-		tmp1 = tmp1->next;
-		*stack_a = tmp1;
-		tmp2->next = tmp1->next;
-		tmp1->next = tmp2;
-	}
-}
-
-void	sb(t_list **stack_b)
-{
-	t_list	*tmp1;
-	t_list	*tmp2;
-
-	tmp1 = NULL;
-	tmp2 = NULL;
-	if (ft_lstsize(*stack_b) > 1)
-	{
-		tmp1 = *stack_b;
-		tmp2 = *stack_b;
-		tmp1 = tmp1->next;
-		*stack_b = tmp1;
-		tmp2->next = tmp1->next;
-		tmp1->next = tmp2;
-	}
-}
-
-void	ss(t_list **stack_a, t_list **stack_b)
-{
-	sa(stack_a);
-	sb(stack_b);
-}
-
-void	pa(t_list **stack_a, t_list **stack_b)
-{
-	t_list	*tmp1;
-	t_list	*tmp2;
-
-	if (*stack_b)
-	{
-		tmp1 = *stack_b;
-		tmp2 = tmp1->next;
-		*stack_b = tmp2;
-		tmp2 = *stack_a;
-		*stack_a = tmp1;
-		tmp1->next = tmp2;
-	}
-}
-
-void	pb(t_list **stack_a, t_list **stack_b)
-{
-	t_list	*tmp1;
-	t_list	*tmp2;
-	
-	if (*stack_a)
-	{
-		tmp1 = *stack_a;
-		tmp2 = tmp1->next;
-		*stack_a = tmp2;
-		tmp2 = *stack_b;
-		*stack_b = tmp1;
-		tmp1->next = tmp2;
-	}
-}
-
-void	ra(t_list **stack_a)
-{
-	t_list	*tmp1;
-	t_list	*tmp2;
-	
-	if (ft_lstsize(*stack_a) > 1)
-	{
-		tmp1 = *stack_a;
-		*stack_a = tmp1->next;
-		tmp2 = ft_lstlast(*stack_a);
-		tmp2->next = tmp1;
-		tmp1->next = NULL;
-	}
-}
-
-void	rb(t_list **stack_b)
-{
-	t_list	*tmp1;
-	t_list	*tmp2;
-
-	if (ft_lstsize(*stack_b) > 1)
-	{
-		tmp1 = *stack_b;
-		*stack_b = tmp1->next;
-		tmp2 = ft_lstlast(*stack_b);
-		tmp2->next = tmp1;
-		tmp1->next = NULL;
-	}
-}
-
-void	rr(t_list **stack_a, t_list **stack_b)
-{
-	ra(stack_a);
-	rb(stack_b);
-}
-
-void	rra(t_list **stack_a)
-{
-	t_list	*tmp1;
-	t_list	*tmp2;
-
-	tmp1 = *stack_a;
-	while (tmp1->next->next != NULL)
-		tmp1 = tmp1->next;
-	tmp2 = tmp1->next;
-	tmp1->next = NULL;
-	tmp2->next = *stack_a;
-	*stack_a = tmp2;
-}
-
-void	rrb(t_list **stack_b)
-{
-	t_list	*tmp1;
-	t_list	*tmp2;
-
-	tmp1 = *stack_b;
-	while (tmp1->next->next != NULL)
-		tmp1 = tmp1->next;
-	tmp2 = tmp1->next;
-	tmp1->next = NULL;
-	tmp2->next = *stack_b;
-	*stack_b = tmp2;
-}
-
-void	rrr(t_list **stack_a, t_list **stack_b)
-{
-	rra(stack_a);
-	rrb(stack_b);
-}
-
-void	duplicates(t_list **stack, char *error)
-{
-	t_list	*tmp1;
-	t_list	*tmp2;
-
-	tmp1 = *stack;
-	while (tmp1->next != NULL) 
-	{
-		tmp2 = tmp1;
-		while (tmp2->next != NULL)
-		{
-			tmp2 = tmp2->next;
-			if (tmp2->content == tmp1->content)
-			{
-				*error = 1;
-				return ;
-			}
-		}
-		tmp1 = tmp1->next;
 	}
 }
 
@@ -262,6 +96,44 @@ int	find_loop_up(t_list **stack)
 	return (low);
 }
 
+int	find_loop_down(t_list **stack)
+{
+	int		high;
+	int		max;
+	int		count;
+	t_list	*tmp1;
+	t_list	*tmp2;
+
+	tmp1 = *stack;
+	count = 0;
+	max = 0;
+	high = tmp1->i;
+	while (tmp1->next != NULL)
+	{
+		tmp2 = tmp1->next;
+		while ((tmp2->next != NULL) && (tmp2->i == tmp1->i - count - 1))
+		{
+			count++;
+			tmp2 = tmp2->next;
+			if (tmp2->next == NULL && (tmp2->i == tmp1->i - count - 1))
+				count++;
+		}
+		if (count > max)
+		{
+			high = tmp1->i;
+			max = count;
+		}
+		while (count > 0)
+		{
+			tmp1 = tmp1->next;
+			count--;
+		}
+		if (tmp1->next != NULL)
+			tmp1 = tmp1->next;
+	}
+	return (high);
+}
+
 int	main(int argc, char **argv)
 {
 	t_list	*stack_a;
@@ -284,7 +156,8 @@ int	main(int argc, char **argv)
 	create_index(&stack_a);
 	print_list(stack_a);
 	printf("\n");
-	printf("biggest loop starts at %d\n", find_loop_up(&stack_a));
+	printf("biggest loop up starts at %d\n", find_loop_up(&stack_a));
+	printf("biggest loop down starts at %d\n", find_loop_down(&stack_a));
 	
 	return (0);
 }

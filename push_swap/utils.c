@@ -6,7 +6,7 @@
 /*   By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:37:35 by lzylberm          #+#    #+#             */
-/*   Updated: 2021/11/17 17:53:30 by lzylberm         ###   ########.fr       */
+/*   Updated: 2021/11/18 15:56:39 by lzylberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,5 +154,27 @@ void	ft_sort_int_tab(int *tab, int size)
 		}
 		index_a++;
 		index_b = index_a;
+	}
+}
+
+void	duplicates(t_list **stack, char *error)
+{
+	t_list	*tmp1;
+	t_list	*tmp2;
+
+	tmp1 = *stack;
+	while (tmp1->next != NULL)
+	{
+		tmp2 = tmp1;
+		while (tmp2->next != NULL)
+		{
+			tmp2 = tmp2->next;
+			if (tmp2->content == tmp1->content)
+			{
+				*error = 1;
+				return ;
+			}
+		}
+		tmp1 = tmp1->next;
 	}
 }

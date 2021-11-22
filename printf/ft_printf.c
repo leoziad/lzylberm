@@ -6,22 +6,21 @@
 /*   By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 14:01:32 by lzylberm          #+#    #+#             */
-/*   Updated: 2021/07/30 16:50:27 by lzylberm         ###   ########.fr       */
+/*   Updated: 2021/11/22 22:34:26 by lzylberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 
-char	*read_type(const char *fmt)
+char	read_type(const char *fmt)
 {
-	char	*type;
+	char	type;
 
-	type = malloc(sizeof(char));
 	fmt++;
 	if (is_type(fmt))
-		*type = *fmt;
+		type = *fmt;
 	else
-		type = NULL;
+		type = 0;
 	return (type);
 }
 
@@ -44,29 +43,29 @@ void	print_s(va_list args, int *count)
 	}
 }
 
-void	global_print(va_list args, char *type, int *count)
+void	global_print(va_list args, char type, int *count)
 {
-	if (*type == 'c')
+	if (type == 'c')
 	{
 		ft_putchar(va_arg(args, int));
 		*count += 1;
 	}
-	else if (*type == 's')
+	else if (type == 's')
 		print_s(args, count);
-	else if (*type == 'p')
+	else if (type == 'p')
 	{
 		add_prefix(count);
-		putnbr_b(va_arg(args, unsigned long long), "0123456789abcdef", count);
+		putnbr_b(va_arg(args, unsigned long), "0123456789abcdef", count);
 	}
-	else if (*type == 'd' || *type == 'i')
+	else if (type == 'd' || type == 'i')
 		putnbr(va_arg(args, int), count);
-	else if (*type == 'u')
-		putnbr_u(va_arg(args, unsigned long long), count);
-	else if (*type == 'x')
-		putnbr_b(va_arg(args, unsigned long long), "0123456789abcdef", count);
-	else if (*type == 'X')
-		putnbr_b(va_arg(args, unsigned long long), "0123456789ABCDEF", count);
-	else if (*type == '%')
+	else if (type == 'u')
+		putnbr_u(va_arg(args, unsigned int), count);
+	else if (type == 'x')
+		putnbr_b(va_arg(args, unsigned int), "0123456789abcdef", count);
+	else if (type == 'X')
+		putnbr_b(va_arg(args, unsigned int), "0123456789ABCDEF", count);
+	else if (type == '%')
 	{
 		ft_putchar('%');
 		*count += 1;
@@ -86,28 +85,25 @@ void	print_basic(const char **fmt, int *count)
 int	ft_printf(const char *fmt, ...)
 {
 	va_list	args;
-	char	*type;
+	char	type;
 	int		count;
 
 	count = 0;
-	type = malloc(sizeof(char));
-	if (type == NULL)
-		return (0);
-	type = NULL;
 	va_start(args, fmt);
 	while (*fmt != '\0')
 	{
 		print_basic(&fmt, &count);
 		if (*fmt == '%')
 			type = read_type(fmt);
-		if (*fmt != '\0')
-			fmt += 2;
+		if (*fmt != '\0' && is_type(++fmt))
+			fmt += 1;
 		if (*fmt == '\0')
 			break ;
-		if (type != NULL)
+		if (type != 0)
 			global_print(args, type, &count);
 	}
-	free (type);
+	if (is_type(--fmt) && *--fmt == '%')
+		global_print(args, type, &count);
 	va_end(args);
 	return (count);
 }

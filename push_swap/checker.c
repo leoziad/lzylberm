@@ -6,7 +6,7 @@
 /*   By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 15:46:17 by lzylberm          #+#    #+#             */
-/*   Updated: 2021/11/18 21:24:53 by lzylberm         ###   ########.fr       */
+/*   Updated: 2021/11/23 16:22:58 by lzylberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,16 @@ void	print_list(t_list *lst)
 t_list	*create_stack(int argc, char **argv)
 {
 	t_list	*stack;
-	char	error;
 	int		i;
 
-	error = 0;
 	i = 2;
-	stack = ft_lstnew(ft_atoi(argv[1], &error));
+	stack = ft_lstnew(ft_atoi(argv[1]));
 	while(i < argc)
 	{
-		ft_lstadd_back(&stack, ft_lstnew(ft_atoi(argv[i], &error)));
+		ft_lstadd_back(&stack, ft_lstnew(ft_atoi(argv[i])));
 		i++;
 	}
-	duplicates(&stack, &error);
-	if (error == 1)
-		write(2, "Error\n", 6);
+	duplicates(&stack);
 	return (stack);
 }
 
@@ -60,14 +56,17 @@ t_list	*list_instruct(char *buff)
 		return (ft_lstnew(7));
 	if (buff[0] == 'r' && buff[1] == 'r' && buff[2] == '\n')
 		return (ft_lstnew(8));
-	if (buff[0] == 'r' && buff[1] == 'r' && buff[2] == 'a')
+	if (buff[0] == 'r' && buff[1] == 'r' && buff[2] == 'a' && buff[3] == '\n')
 		return (ft_lstnew(9));
-	if (buff[0] == 'r' && buff[1] == 'r' && buff[2] == 'b')
+	if (buff[0] == 'r' && buff[1] == 'r' && buff[2] == 'b' && buff[3] == '\n')
 		return (ft_lstnew(10));
-	if (buff[0] == 'r' && buff[1] == 'r' && buff[2] == 'r')
+	if (buff[0] == 'r' && buff[1] == 'r' && buff[2] == 'r' && buff[3] == '\n')
 		return (ft_lstnew(11));
 	else
-		return (ft_lstnew(0));
+	{
+		write(0, "Error\n", 6);
+		exit(0);
+	}
 }
 
 void	exec_instruct(t_list **stack_a, t_list **stack_b, t_list *instruct)
@@ -100,31 +99,26 @@ void	exec_instruct(t_list **stack_a, t_list **stack_b, t_list *instruct)
 	}
 }
 
-int	check_instruct(t_list *instruct)
-{
-	while (instruct)
-	{
-		if (instruct->content == 0)
-			return (0);
-		instruct = instruct->next;
-	}
-	return (1);
-}
-
-int	check_sort(t_list *stack_a, t_list *stack_b)
+void	check_sort(t_list *stack_a, t_list *stack_b)
 {
 	int	i;
 
 	if (ft_lstsize(stack_b) > 0)
-		return (0);
+	{
+		write(1, "KO\n", 3);		
+		return ;
+	}
 	while (stack_a->next != NULL)
 	{
 		i = stack_a->content;
 		stack_a = stack_a->next;
 		if (stack_a->content < i)
-			return (0);
+		{
+			write(1, "KO\n", 3);		
+			return ;
+		}
 	}
-	return (1);
+	write(1, "OK\n", 3);
 }
 
 int	main(int argc, char **argv)
@@ -135,32 +129,18 @@ int	main(int argc, char **argv)
 	char	buff[4];
 
 	stack_b = NULL;
+	stack_a = NULL;
 	if (argc > 1)
 	{
 		stack_a = create_stack(argc, argv);	
-		while (1)
+		while (read(0, buff, 4))
 		{
-			read(0, buff, 4);
 			if (buff[0] == '\n')
 				break;
 			ft_lstadd_back(&instruct, list_instruct(buff));
 		}
-		if (!check_instruct(instruct))
-		{
-			write (0, "Error", 6);
-			return (0);
-		}
 		exec_instruct(&stack_a, &stack_b, instruct);
-		print_list(instruct);
-		printf("\n");
-		print_list(stack_a);
-		printf("\n");
-		print_list(stack_b);
-		printf("\n");
-		if (check_sort(stack_a, stack_b))
-			write(1, "OK\n", 3);
-		else
-			write(1, "KO\n", 3);
+		check_sort(stack_a, stack_b);
 	}
 	return(0);
 }

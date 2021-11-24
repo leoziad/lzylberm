@@ -6,7 +6,7 @@
 /*   By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:37:35 by lzylberm          #+#    #+#             */
-/*   Updated: 2021/11/23 17:16:26 by lzylberm         ###   ########.fr       */
+/*   Updated: 2021/11/24 19:39:22 by lzylberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,6 @@ t_list	*ft_lstnew(int content)
 	return (new);
 }
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
-{
-	if (lst == NULL || new == NULL)
-		return ;
-	if (*lst == new)
-		return ;
-	new->next = *lst;
-	*lst = new;
-}
-
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
 	t_list		*ptr;
@@ -70,7 +60,6 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 		ptr->next = new;
 	}
 }
-
 
 t_list	*ft_lstlast(t_list *lst)
 {
@@ -94,7 +83,23 @@ int	ft_lstsize(t_list *lst)
 	return (result);
 }
 
-int	ft_atoi(const char *str)
+void	ft_lstclear(t_list **lst)
+{
+	t_list		*current;
+	t_list		*tmp;
+
+	current = *lst;
+	while (current != NULL)
+	{
+		tmp = current->next;
+		free (current);
+		current = tmp;
+	}
+	(*lst) = NULL;
+	lst = NULL;
+}
+
+int	ft_atoi(const char *str, t_list **stack)
 {
 	int		index;
 	int		sign;
@@ -115,6 +120,7 @@ int	ft_atoi(const char *str)
 	}
 	if ((sign == -1 && result > 2147483648) || (sign == 1 && result > 2147483647) || !str[0] || str[index])
 	{
+		ft_lstclear(stack);
 		write(0, "Error\n", 6);
 		exit(0);
 	}
@@ -188,6 +194,7 @@ void	duplicates(t_list **stack)
 			tmp2 = tmp2->next;
 			if (tmp2->content == tmp1->content)
 			{
+				ft_lstclear(stack);
 				write(0, "Error\n", 6);
 				exit(0);
 			}
@@ -257,7 +264,7 @@ int	find_min(t_list **stack)
 	return (tmp->i);
 }
 
-void	smart_rotate(t_list **stack, int i)
+/*void	smart_rotate(t_list **stack, int i)
 {
 	int		size;
 	int		count;
@@ -337,7 +344,7 @@ void	sort_5(t_list **stack_a, t_list **stack_b)
 	pa(stack_a, stack_b);
 }
 
-void	chunk1(t_list **stack_a, t_list **stack_b, int size)
+void	chunk1_7(t_list **stack_a, t_list **stack_b, int size)
 {
 	t_list	*tmp;
 
@@ -345,7 +352,7 @@ void	chunk1(t_list **stack_a, t_list **stack_b, int size)
 	tmp = *stack_a;
 	while (tmp)
 	{
-		if (tmp->i < size / 5)
+		if (tmp->i < size / 7)
 		{
 			smart_rotate(stack_a, tmp->i);
 			pb(stack_a, stack_b);
@@ -357,7 +364,7 @@ void	chunk1(t_list **stack_a, t_list **stack_b, int size)
 	}
 }
 
-void	chunk2(t_list **stack_a, t_list **stack_b, int size)
+void	chunk2_7(t_list **stack_a, t_list **stack_b, int size)
 {
 	t_list	*tmp;
 
@@ -365,7 +372,7 @@ void	chunk2(t_list **stack_a, t_list **stack_b, int size)
 	tmp = *stack_a;
 	while (tmp)
 	{
-		if (tmp->i < (size / 5) * 2)
+		if (tmp->i < (size / 7) * 2)
 		{
 			smart_rotate(stack_a, tmp->i);
 			pb(stack_a, stack_b);
@@ -377,7 +384,7 @@ void	chunk2(t_list **stack_a, t_list **stack_b, int size)
 	}
 }
 
-void	chunk3(t_list **stack_a, t_list **stack_b, int size)
+void	chunk3_7(t_list **stack_a, t_list **stack_b, int size)
 {
 	t_list	*tmp;
 
@@ -385,7 +392,7 @@ void	chunk3(t_list **stack_a, t_list **stack_b, int size)
 	tmp = *stack_a;
 	while (tmp)
 	{
-		if (tmp->i < (size / 5) * 3)
+		if (tmp->i < (size / 7) * 3)
 		{
 			smart_rotate(stack_a, tmp->i);
 			pb(stack_a, stack_b);
@@ -397,7 +404,7 @@ void	chunk3(t_list **stack_a, t_list **stack_b, int size)
 	}
 }
 
-void	chunk4(t_list **stack_a, t_list **stack_b, int size)
+void	chunk4_7(t_list **stack_a, t_list **stack_b, int size)
 {
 	t_list	*tmp;
 
@@ -405,7 +412,7 @@ void	chunk4(t_list **stack_a, t_list **stack_b, int size)
 	tmp = *stack_a;
 	while (tmp)
 	{
-		if (tmp->i < (size / 5) * 4)
+		if (tmp->i < (size / 7) * 4)
 		{
 			smart_rotate(stack_a, tmp->i);
 			pb(stack_a, stack_b);
@@ -417,15 +424,318 @@ void	chunk4(t_list **stack_a, t_list **stack_b, int size)
 	}
 }
 
-void	push_chunks(t_list **stack_a, t_list **stack_b)
+void	chunk5_7(t_list **stack_a, t_list **stack_b, int size)
+{
+	t_list	*tmp;
+
+	update_pos(stack_a);
+	tmp = *stack_a;
+	while (tmp)
+	{
+		if (tmp->i < (size / 7) * 5)
+		{
+			smart_rotate(stack_a, tmp->i);
+			pb(stack_a, stack_b);
+			update_pos(stack_a);
+			tmp = *stack_a;
+		}
+		else
+			tmp = tmp->next;
+	}
+}
+
+void	chunk6_7(t_list **stack_a, t_list **stack_b, int size)
+{
+	t_list	*tmp;
+
+	update_pos(stack_a);
+	tmp = *stack_a;
+	while (tmp)
+	{
+		if (tmp->i < (size / 7) * 6)
+		{
+			smart_rotate(stack_a, tmp->i);
+			pb(stack_a, stack_b);
+			update_pos(stack_a);
+			tmp = *stack_a;
+		}
+		else
+			tmp = tmp->next;
+	}
+}
+
+void	push_chunks_7(t_list **stack_a, t_list **stack_b)
 {
 	int	size;
 
 	size = ft_lstsize(*stack_a);
-	chunk1(stack_a, stack_b, size);
-	chunk2(stack_a, stack_b, size);
-	chunk3(stack_a, stack_b, size);
-	chunk4(stack_a, stack_b, size);
+	chunk1_7(stack_a, stack_b, size);
+	chunk2_7(stack_a, stack_b, size);
+	chunk3_7(stack_a, stack_b, size);
+	chunk4_7(stack_a, stack_b, size);
+	chunk5_7(stack_a, stack_b, size);
+	chunk6_7(stack_a, stack_b, size);
+	while (*stack_a)
+		pb(stack_a, stack_b);
+}
+
+void	chunk1_13(t_list **stack_a, t_list **stack_b, int size)
+{
+	t_list	*tmp;
+
+	update_pos(stack_a);
+	tmp = *stack_a;
+	while (tmp)
+	{
+		if (tmp->i < (size / 13))
+		{
+			smart_rotate(stack_a, tmp->i);
+			pb(stack_a, stack_b);
+			update_pos(stack_a);
+			tmp = *stack_a;
+		}
+		else
+			tmp = tmp->next;
+	}
+}
+
+void	chunk2_13(t_list **stack_a, t_list **stack_b, int size)
+{
+	t_list	*tmp;
+
+	update_pos(stack_a);
+	tmp = *stack_a;
+	while (tmp)
+	{
+		if (tmp->i < (size / 13) * 2)
+		{
+			smart_rotate(stack_a, tmp->i);
+			pb(stack_a, stack_b);
+			update_pos(stack_a);
+			tmp = *stack_a;
+		}
+		else
+			tmp = tmp->next;
+	}
+}
+
+void	chunk3_13(t_list **stack_a, t_list **stack_b, int size)
+{
+	t_list	*tmp;
+
+	update_pos(stack_a);
+	tmp = *stack_a;
+	while (tmp)
+	{
+		if (tmp->i < (size / 13) * 3)
+		{
+			smart_rotate(stack_a, tmp->i);
+			pb(stack_a, stack_b);
+			update_pos(stack_a);
+			tmp = *stack_a;
+		}
+		else
+			tmp = tmp->next;
+	}
+}
+
+void	chunk4_13(t_list **stack_a, t_list **stack_b, int size)
+{
+	t_list	*tmp;
+
+	update_pos(stack_a);
+	tmp = *stack_a;
+	while (tmp)
+	{
+		if (tmp->i < (size / 13) * 4)
+		{
+			smart_rotate(stack_a, tmp->i);
+			pb(stack_a, stack_b);
+			update_pos(stack_a);
+			tmp = *stack_a;
+		}
+		else
+			tmp = tmp->next;
+	}
+}
+
+void	chunk5_13(t_list **stack_a, t_list **stack_b, int size)
+{
+	t_list	*tmp;
+
+	update_pos(stack_a);
+	tmp = *stack_a;
+	while (tmp)
+	{
+		if (tmp->i < (size / 13) * 5)
+		{
+			smart_rotate(stack_a, tmp->i);
+			pb(stack_a, stack_b);
+			update_pos(stack_a);
+			tmp = *stack_a;
+		}
+		else
+			tmp = tmp->next;
+	}
+}
+
+void	chunk6_13(t_list **stack_a, t_list **stack_b, int size)
+{
+	t_list	*tmp;
+
+	update_pos(stack_a);
+	tmp = *stack_a;
+	while (tmp)
+	{
+		if (tmp->i < (size / 13) * 6)
+		{
+			smart_rotate(stack_a, tmp->i);
+			pb(stack_a, stack_b);
+			update_pos(stack_a);
+			tmp = *stack_a;
+		}
+		else
+			tmp = tmp->next;
+	}
+}
+
+void	chunk7_13(t_list **stack_a, t_list **stack_b, int size)
+{
+	t_list	*tmp;
+
+	update_pos(stack_a);
+	tmp = *stack_a;
+	while (tmp)
+	{
+		if (tmp->i < (size / 13) * 7)
+		{
+			smart_rotate(stack_a, tmp->i);
+			pb(stack_a, stack_b);
+			update_pos(stack_a);
+			tmp = *stack_a;
+		}
+		else
+			tmp = tmp->next;
+	}
+}
+
+void	chunk8_13(t_list **stack_a, t_list **stack_b, int size)
+{
+	t_list	*tmp;
+
+	update_pos(stack_a);
+	tmp = *stack_a;
+	while (tmp)
+	{
+		if (tmp->i < (size / 13) * 8)
+		{
+			smart_rotate(stack_a, tmp->i);
+			pb(stack_a, stack_b);
+			update_pos(stack_a);
+			tmp = *stack_a;
+		}
+		else
+			tmp = tmp->next;
+	}
+}
+
+void	chunk9_13(t_list **stack_a, t_list **stack_b, int size)
+{
+	t_list	*tmp;
+
+	update_pos(stack_a);
+	tmp = *stack_a;
+	while (tmp)
+	{
+		if (tmp->i < (size / 13) * 9)
+		{
+			smart_rotate(stack_a, tmp->i);
+			pb(stack_a, stack_b);
+			update_pos(stack_a);
+			tmp = *stack_a;
+		}
+		else
+			tmp = tmp->next;
+	}
+}
+
+void	chunk10_13(t_list **stack_a, t_list **stack_b, int size)
+{
+	t_list	*tmp;
+
+	update_pos(stack_a);
+	tmp = *stack_a;
+	while (tmp)
+	{
+		if (tmp->i < (size / 13) * 10)
+		{
+			smart_rotate(stack_a, tmp->i);
+			pb(stack_a, stack_b);
+			update_pos(stack_a);
+			tmp = *stack_a;
+		}
+		else
+			tmp = tmp->next;
+	}
+}
+
+void	chunk11_13(t_list **stack_a, t_list **stack_b, int size)
+{
+	t_list	*tmp;
+
+	update_pos(stack_a);
+	tmp = *stack_a;
+	while (tmp)
+	{
+		if (tmp->i < (size / 13) * 11)
+		{
+			smart_rotate(stack_a, tmp->i);
+			pb(stack_a, stack_b);
+			update_pos(stack_a);
+			tmp = *stack_a;
+		}
+		else
+			tmp = tmp->next;
+	}
+}
+
+void	chunk12_13(t_list **stack_a, t_list **stack_b, int size)
+{
+	t_list	*tmp;
+
+	update_pos(stack_a);
+	tmp = *stack_a;
+	while (tmp)
+	{
+		if (tmp->i < (size / 13) * 12)
+		{
+			smart_rotate(stack_a, tmp->i);
+			pb(stack_a, stack_b);
+			update_pos(stack_a);
+			tmp = *stack_a;
+		}
+		else
+			tmp = tmp->next;
+	}
+}
+
+void	push_chunks_13(t_list **stack_a, t_list **stack_b)
+{
+	int	size;
+
+	size = ft_lstsize(*stack_a);
+	chunk1_13(stack_a, stack_b, size);
+	chunk2_13(stack_a, stack_b, size);
+	chunk3_13(stack_a, stack_b, size);
+	chunk4_13(stack_a, stack_b, size);
+	chunk5_13(stack_a, stack_b, size);
+	chunk6_13(stack_a, stack_b, size);
+	chunk7_13(stack_a, stack_b, size);
+	chunk8_13(stack_a, stack_b, size);
+	chunk9_13(stack_a, stack_b, size);
+	chunk10_13(stack_a, stack_b, size);
+	chunk11_13(stack_a, stack_b, size);
+	chunk12_13(stack_a, stack_b, size);
 	while (*stack_a)
 		pb(stack_a, stack_b);
 }
@@ -443,4 +753,4 @@ void	push_back_chunks(t_list **stack_a, t_list **stack_b)
 		update_pos(stack_b);
 		size--;
 	}
-}
+}*/

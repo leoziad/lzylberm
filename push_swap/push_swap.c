@@ -6,72 +6,59 @@
 /*   By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:34:00 by lzylberm          #+#    #+#             */
-/*   Updated: 2021/11/23 18:05:38 by lzylberm         ###   ########.fr       */
+/*   Updated: 2021/11/24 18:44:45 by lzylberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ps.h"
 
-char	*int_to_bin(int i)
+t_list	*create_stack(int argc, char **argv)
 {
-	char	*bin_val;
-	int		index;
+	t_list	*stack;
+	int		i;
 
-	index = 0;
-	bin_val = ft_strnew(32);
-	if (i % 2 != 0)
-		bin_val[index] = '1';
-	index++;
-	while (i > 1)
+	i = 2;
+	stack = ft_lstnew(ft_atoi(argv[1], &stack));
+	while (i < argc)
 	{
-		i = i / 2;
-		if (i % 2 != 0)
-			bin_val[index] = '1';
-		index++;
+		ft_lstadd_back(&stack, ft_lstnew(ft_atoi(argv[i], &stack)));
+		i++;
 	}
-	return (bin_val);
+	duplicates(&stack);
+	create_index(&stack);
+	return (stack);
 }
 
-void	bin_val(t_list **stack)
+void	sort_small(int argc, t_list **stack_a, t_list **stack_b)
 {
-	t_list	*tmp;
-
-	tmp = *stack;
-	while (tmp)
-	{
-		tmp->bin = int_to_bin(tmp->content);
-		tmp = tmp->next;
-	}
+	if (argc == 4)
+		sort_3(stack_a);
+	else if (argc == 5)
+		sort_4(stack_a, stack_b);
+	else if (argc == 6)
+		sort_5(stack_a, stack_b);
 }
 
 int	main(int argc, char **argv)
 {
 	t_list	*stack_a;
 	t_list	*stack_b;
-	int		i;
 
-	i = 2;
-	stack_a = ft_lstnew(ft_atoi(argv[1]));
+	stack_a = create_stack(argc, argv);
 	stack_b = NULL;
-	while(i < argc)
+	if (argc < 7)
+		sort_small(argc, &stack_a, &stack_b);
+	else if (argc < 102)
 	{
-		ft_lstadd_back(&stack_a, ft_lstnew(ft_atoi(argv[i])));
-		i++;
-	}
-	duplicates(&stack_a);
-	create_index(&stack_a);
-	if (argc == 4)
-		sort_3(&stack_a);
-	else if (argc == 5)
-		sort_4(&stack_a, &stack_b);
-	else if (argc == 6)
-		sort_5(&stack_a, &stack_b);
-	else
-	{
-		push_chunks(&stack_a, &stack_b);
+		push_chunks_7(&stack_a, &stack_b);
 		push_back_chunks(&stack_a, &stack_b);
 	}
-	free(stack_a);
-	free(stack_b);
+	else
+	{
+		push_chunks_13(&stack_a, &stack_b);
+		push_back_chunks(&stack_a, &stack_b);
+	}
+	ft_lstclear(&stack_a);
+	ft_lstclear(&stack_b);
 	return (0);
 }

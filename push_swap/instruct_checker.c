@@ -6,13 +6,13 @@
 /*   By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 15:53:55 by lzylberm          #+#    #+#             */
-/*   Updated: 2021/11/24 19:13:33 by lzylberm         ###   ########.fr       */
+/*   Updated: 2021/11/24 19:37:44 by lzylberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ps.h"
 
-void	sa(t_list **stack_a)
+void	sa_s(t_list **stack_a)
 {
 	t_list	*tmp1;
 	t_list	*tmp2;
@@ -28,10 +28,9 @@ void	sa(t_list **stack_a)
 		tmp2->next = tmp1->next;
 		tmp1->next = tmp2;
 	}
-	write(1, "sa\n", 3);
 }
 
-void	sb(t_list **stack_b)
+void	sb_s(t_list **stack_b)
 {
 	t_list	*tmp1;
 	t_list	*tmp2;
@@ -47,17 +46,15 @@ void	sb(t_list **stack_b)
 		tmp2->next = tmp1->next;
 		tmp1->next = tmp2;
 	}
-	write(1, "sb\n", 3);
 }
 
-void	ss(t_list **stack_a, t_list **stack_b)
+void	ss_s(t_list **stack_a, t_list **stack_b)
 {
-	sa(stack_a);
-	sb(stack_b);
-	write(1, "ss\n", 3);
+	sa_s(stack_a);
+	sb_s(stack_b);
 }
 
-void	pa(t_list **stack_a, t_list **stack_b)
+void	pa_s(t_list **stack_a, t_list **stack_b)
 {
 	t_list	*tmp1;
 	t_list	*tmp2;
@@ -71,10 +68,9 @@ void	pa(t_list **stack_a, t_list **stack_b)
 		*stack_a = tmp1;
 		tmp1->next = tmp2;
 	}
-	write(1, "pa\n", 3);
 }
 
-void	pb(t_list **stack_a, t_list **stack_b)
+void	pb_s(t_list **stack_a, t_list **stack_b)
 {
 	t_list	*tmp1;
 	t_list	*tmp2;
@@ -88,10 +84,9 @@ void	pb(t_list **stack_a, t_list **stack_b)
 		*stack_b = tmp1;
 		tmp1->next = tmp2;
 	}
-	write(1, "pb\n", 3);
 }
 
-void	ra(t_list **stack_a)
+void	ra_s(t_list **stack_a)
 {
 	t_list	*tmp1;
 	t_list	*tmp2;
@@ -104,10 +99,9 @@ void	ra(t_list **stack_a)
 		tmp2->next = tmp1;
 		tmp1->next = NULL;
 	}
-	write(1, "ra\n", 3);
 }
 
-void	rb(t_list **stack_b)
+void	rb_s(t_list **stack_b)
 {
 	t_list	*tmp1;
 	t_list	*tmp2;
@@ -120,17 +114,15 @@ void	rb(t_list **stack_b)
 		tmp2->next = tmp1;
 		tmp1->next = NULL;
 	}
-	write(1, "rb\n", 3);
 }
 
-void	rr(t_list **stack_a, t_list **stack_b)
+void	rr_s(t_list **stack_a, t_list **stack_b)
 {
-	ra(stack_a);
-	rb(stack_b);
-	write(1, "rr\n", 3);
+	ra_s(stack_a);
+	rb_s(stack_b);
 }
 
-void	rra(t_list **stack_a)
+void	rra_s(t_list **stack_a)
 {
 	t_list	*tmp1;
 	t_list	*tmp2;
@@ -142,10 +134,9 @@ void	rra(t_list **stack_a)
 	tmp1->next = NULL;
 	tmp2->next = *stack_a;
 	*stack_a = tmp2;
-	write(1, "rra\n", 4);
 }
 
-void	rrb(t_list **stack_b)
+void	rrb_s(t_list **stack_b)
 {
 	t_list	*tmp1;
 	t_list	*tmp2;
@@ -157,12 +148,10 @@ void	rrb(t_list **stack_b)
 	tmp1->next = NULL;
 	tmp2->next = *stack_b;
 	*stack_b = tmp2;
-	write(1, "rrb\n", 4);
 }
 
-void	rrr(t_list **stack_a, t_list **stack_b)
+void	rrr_s(t_list **stack_a, t_list **stack_b)
 {
-	rra(stack_a);
-	rrb(stack_b);
-	write(1, "rrr\n", 4);
+	rra_s(stack_a);
+	rrb_s(stack_b);
 }

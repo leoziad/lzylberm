@@ -6,13 +6,13 @@
 /*   By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 19:29:03 by lzylberm          #+#    #+#             */
-/*   Updated: 2021/11/24 19:36:48 by lzylberm         ###   ########.fr       */
+/*   Updated: 2021/12/07 14:03:14 by lzylberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ps.h"
 
-void	chunk1_7(t_list **stack_a, t_list **stack_b, int size)
+void	chunk1_6(t_list **stack_a, t_list **stack_b, int size)
 {
 	t_list	*tmp;
 
@@ -20,7 +20,7 @@ void	chunk1_7(t_list **stack_a, t_list **stack_b, int size)
 	tmp = *stack_a;
 	while (tmp)
 	{
-		if (tmp->i < size / 7)
+		if (tmp->i < size / 6)
 		{
 			smart_rotate(stack_a, tmp->i);
 			pb(stack_a, stack_b);
@@ -32,7 +32,7 @@ void	chunk1_7(t_list **stack_a, t_list **stack_b, int size)
 	}
 }
 
-void	chunk2_7(t_list **stack_a, t_list **stack_b, int size)
+void	chunk2_6(t_list **stack_a, t_list **stack_b, int size)
 {
 	t_list	*tmp;
 
@@ -40,7 +40,7 @@ void	chunk2_7(t_list **stack_a, t_list **stack_b, int size)
 	tmp = *stack_a;
 	while (tmp)
 	{
-		if (tmp->i < (size / 7) * 2)
+		if (tmp->i < (size / 6) * 2)
 		{
 			smart_rotate(stack_a, tmp->i);
 			pb(stack_a, stack_b);
@@ -52,7 +52,7 @@ void	chunk2_7(t_list **stack_a, t_list **stack_b, int size)
 	}
 }
 
-void	chunk3_7(t_list **stack_a, t_list **stack_b, int size)
+void	chunk3_6(t_list **stack_a, t_list **stack_b, int size)
 {
 	t_list	*tmp;
 
@@ -60,7 +60,7 @@ void	chunk3_7(t_list **stack_a, t_list **stack_b, int size)
 	tmp = *stack_a;
 	while (tmp)
 	{
-		if (tmp->i < (size / 7) * 3)
+		if (tmp->i < (size / 6) * 3)
 		{
 			smart_rotate(stack_a, tmp->i);
 			pb(stack_a, stack_b);
@@ -72,7 +72,7 @@ void	chunk3_7(t_list **stack_a, t_list **stack_b, int size)
 	}
 }
 
-void	chunk4_7(t_list **stack_a, t_list **stack_b, int size)
+void	chunk4_6(t_list **stack_a, t_list **stack_b, int size)
 {
 	t_list	*tmp;
 
@@ -80,7 +80,7 @@ void	chunk4_7(t_list **stack_a, t_list **stack_b, int size)
 	tmp = *stack_a;
 	while (tmp)
 	{
-		if (tmp->i < (size / 7) * 4)
+		if (tmp->i < (size / 6) * 4)
 		{
 			smart_rotate(stack_a, tmp->i);
 			pb(stack_a, stack_b);
@@ -92,7 +92,7 @@ void	chunk4_7(t_list **stack_a, t_list **stack_b, int size)
 	}
 }
 
-void	chunk5_7(t_list **stack_a, t_list **stack_b, int size)
+void	chunk5_6(t_list **stack_a, t_list **stack_b, int size)
 {
 	t_list	*tmp;
 
@@ -100,7 +100,7 @@ void	chunk5_7(t_list **stack_a, t_list **stack_b, int size)
 	tmp = *stack_a;
 	while (tmp)
 	{
-		if (tmp->i < (size / 7) * 5)
+		if (tmp->i < (size / 6) * 5)
 		{
 			smart_rotate(stack_a, tmp->i);
 			pb(stack_a, stack_b);

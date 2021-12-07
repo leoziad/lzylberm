@@ -6,7 +6,7 @@
 /*   By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:34:54 by lzylberm          #+#    #+#             */
-/*   Updated: 2021/11/24 19:40:21 by lzylberm         ###   ########.fr       */
+/*   Updated: 2021/12/07 12:32:46 by lzylberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ void		rr(t_list **stack_a, t_list **stack_b);
 void		rra(t_list **stack_a);
 void		rrb(t_list **stack_b);
 void		rrr(t_list **stack_a, t_list **stack_b);
+t_list		*list_instruct_p(char *buff, t_list **stack_a);
+t_list		*list_instruct_s(char *buff, t_list **stack_a);
+t_list		*list_instruct_r(char *buff, t_list **stack_a);
+void		exec_instruct_2(t_list **stack_a, t_list **stack_b,
+				t_list *instruct);
 void		sa_s(t_list **stack_a);
 void		sb_s(t_list **stack_b);
 void		ss_s(t_list **stack_a, t_list **stack_b);
@@ -62,30 +67,29 @@ void		rrr_s(t_list **stack_a, t_list **stack_b);
 int			indexing(int *index, int content);
 void		create_index(t_list **stack);
 void		update_pos(t_list **stack);
-int			find_min(t_list **stack);
 void		smart_rotate(t_list **stack, int i);
 void		sort_3(t_list **stack_a);
 void		sort_4(t_list **stack_a, t_list **stack_b);
 void		sort_5(t_list **stack_a, t_list **stack_b);
-void		chunk1_7(t_list **stack_a, t_list **stack_b, int size);
-void		chunk2_7(t_list **stack_a, t_list **stack_b, int size);
-void		chunk3_7(t_list **stack_a, t_list **stack_b, int size);
-void		chunk4_7(t_list **stack_a, t_list **stack_b, int size);
-void		chunk5_7(t_list **stack_a, t_list **stack_b, int size);
-void		chunk6_7(t_list **stack_a, t_list **stack_b, int size);
-void		chunk1_11(t_list **stack_a, t_list **stack_b, int size);
-void		chunk2_11(t_list **stack_a, t_list **stack_b, int size);
-void		chunk3_11(t_list **stack_a, t_list **stack_b, int size);
-void		chunk4_11(t_list **stack_a, t_list **stack_b, int size);
-void		chunk5_11(t_list **stack_a, t_list **stack_b, int size);
-void		chunk6_11(t_list **stack_a, t_list **stack_b, int size);
-void		chunk7_11(t_list **stack_a, t_list **stack_b, int size);
-void		chunk8_11(t_list **stack_a, t_list **stack_b, int size);
-void		chunk9_11(t_list **stack_a, t_list **stack_b, int size);
-void		chunk10_11(t_list **stack_a, t_list **stack_b, int size);
-void		chunk11_11(t_list **stack_a, t_list **stack_b, int size);
-void		chunk12_11(t_list **stack_a, t_list **stack_b, int size);
-void		push_chunks_7(t_list **stack_a, t_list **stack_b);
+void		chunk1_6(t_list **stack_a, t_list **stack_b, int size);
+void		chunk2_6(t_list **stack_a, t_list **stack_b, int size);
+void		chunk3_6(t_list **stack_a, t_list **stack_b, int size);
+void		chunk4_6(t_list **stack_a, t_list **stack_b, int size);
+void		chunk5_6(t_list **stack_a, t_list **stack_b, int size);
+void		chunk1_13(t_list **stack_a, t_list **stack_b, int size);
+void		chunk2_13(t_list **stack_a, t_list **stack_b, int size);
+void		chunk3_13(t_list **stack_a, t_list **stack_b, int size);
+void		chunk4_13(t_list **stack_a, t_list **stack_b, int size);
+void		chunk5_13(t_list **stack_a, t_list **stack_b, int size);
+void		chunk6_13(t_list **stack_a, t_list **stack_b, int size);
+void		chunk7_13(t_list **stack_a, t_list **stack_b, int size);
+void		chunk8_13(t_list **stack_a, t_list **stack_b, int size);
+void		chunk9_13(t_list **stack_a, t_list **stack_b, int size);
+void		chunk10_13(t_list **stack_a, t_list **stack_b, int size);
+void		chunk11_13(t_list **stack_a, t_list **stack_b, int size);
+void		chunk12_13(t_list **stack_a, t_list **stack_b, int size);
+void		push_chunks_6(t_list **stack_a, t_list **stack_b);
 void		push_chunks_13(t_list **stack_a, t_list **stack_b);
 void		push_back_chunks(t_list **stack_a, t_list **stack_b);
+int			get_next_line(int fd, char **line);
 #endif

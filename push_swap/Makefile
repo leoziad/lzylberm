@@ -6,13 +6,13 @@
 #    By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/23 16:17:25 by lzylberm          #+#    #+#              #
-#    Updated: 2021/11/24 19:41:54 by lzylberm         ###   ########.fr        #
+#    Updated: 2021/11/26 15:42:15 by lzylberm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS_CHECKER	= checker.c instruct_checker.c utils.c
+SRCS_CHECKER	= checker.c instruct_checker.c instruct_checker_2.c instruct_checker_3.c list_instruct.c ft_lists.c get_next_line.c get_next_line_utils.c utils.c
 
-SRCS_PS			= push_swap.c instruct.c utils.c sort_small.c small_chunks_1.c small_chunks_2.c big_chunks_1.c big_chunks_2.c big_chunks_3.c sort_all.c
+SRCS_PS			= push_swap.c instruct.c instruct_2.c instruct_3.c ft_lists.c utils.c index.c sort_small.c small_chunks_1.c small_chunks_2.c big_chunks_1.c big_chunks_2.c big_chunks_3.c sort_all.c
 
 OBJS_CHECKER	= $(SRCS_CHECKER:.c=.o)
 

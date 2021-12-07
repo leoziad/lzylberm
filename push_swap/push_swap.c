@@ -6,11 +6,22 @@
 /*   By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:34:00 by lzylberm          #+#    #+#             */
-/*   Updated: 2021/11/24 18:44:45 by lzylberm         ###   ########.fr       */
+/*   Updated: 2021/12/07 14:04:33 by lzylberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ps.h"
+
+void	print_list(t_list **stack)
+{
+	t_list	*tmp = *stack;
+	
+	while (tmp)
+	{
+		printf("%d\n", tmp->content);
+		tmp = tmp->next;
+	}
+}
 
 t_list	*create_stack(int argc, char **argv)
 {
@@ -50,7 +61,7 @@ int	main(int argc, char **argv)
 		sort_small(argc, &stack_a, &stack_b);
 	else if (argc < 102)
 	{
-		push_chunks_7(&stack_a, &stack_b);
+		push_chunks_6(&stack_a, &stack_b);
 		push_back_chunks(&stack_a, &stack_b);
 	}
 	else
@@ -58,6 +69,9 @@ int	main(int argc, char **argv)
 		push_chunks_13(&stack_a, &stack_b);
 		push_back_chunks(&stack_a, &stack_b);
 	}
+	//print_list(&stack_a);
+	//printf("\n B : ");
+	//print_list(&stack_b);
 	ft_lstclear(&stack_a);
 	ft_lstclear(&stack_b);
 	return (0);

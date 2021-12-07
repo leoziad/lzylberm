@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   small_chunks_2.c                                   :+:      :+:    :+:   */
+/*   instruct_3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/24 19:29:58 by lzylberm          #+#    #+#             */
-/*   Updated: 2021/12/07 12:33:43 by lzylberm         ###   ########.fr       */
+/*   Created: 2021/11/25 17:11:53 by lzylberm          #+#    #+#             */
+/*   Updated: 2021/11/25 17:12:02 by lzylberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ps.h"
 
-void	push_chunks_6(t_list **stack_a, t_list **stack_b)
+void	rrr(t_list **stack_a, t_list **stack_b)
 {
-	int	size;
-
-	size = ft_lstsize(*stack_a);
-	chunk1_6(stack_a, stack_b, size);
-	chunk2_6(stack_a, stack_b, size);
-	chunk3_6(stack_a, stack_b, size);
-	chunk4_6(stack_a, stack_b, size);
-	chunk5_6(stack_a, stack_b, size);
-	while (*stack_a)
-		pb(stack_a, stack_b);
+	rra(stack_a);
+	rrb(stack_b);
+	write(1, "rrr\n", 4);
 }

@@ -6,7 +6,7 @@
 /*   By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:34:54 by lzylberm          #+#    #+#             */
-/*   Updated: 2021/12/07 12:32:46 by lzylberm         ###   ########.fr       */
+/*   Updated: 2021/12/07 14:59:20 by lzylberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void		rrr_s(t_list **stack_a, t_list **stack_b);
 int			indexing(int *index, int content);
 void		create_index(t_list **stack);
 void		update_pos(t_list **stack);
-void		smart_rotate(t_list **stack, int i);
+void		smart_rotate_a(t_list **stack, int i);
+void		smart_rotate_b(t_list **stack, int i);
 void		sort_3(t_list **stack_a);
 void		sort_4(t_list **stack_a, t_list **stack_b);
 void		sort_5(t_list **stack_a, t_list **stack_b);
@@ -92,4 +93,5 @@ void		push_chunks_6(t_list **stack_a, t_list **stack_b);
 void		push_chunks_13(t_list **stack_a, t_list **stack_b);
 void		push_back_chunks(t_list **stack_a, t_list **stack_b);
 int			get_next_line(int fd, char **line);
+void		print_list(t_list **stack);
 #endif

@@ -6,7 +6,7 @@
 /*   By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 19:32:33 by lzylberm          #+#    #+#             */
-/*   Updated: 2021/11/25 12:40:10 by lzylberm         ###   ########.fr       */
+/*   Updated: 2021/12/07 15:03:28 by lzylberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	chunk11_13(t_list **stack_a, t_list **stack_b, int size)
 	{
 		if (tmp->i < (size / 13) * 11)
 		{
-			smart_rotate(stack_a, tmp->i);
+			smart_rotate_a(stack_a, tmp->i);
 			pb(stack_a, stack_b);
 			update_pos(stack_a);
 			tmp = *stack_a;
@@ -42,7 +42,7 @@ void	chunk12_13(t_list **stack_a, t_list **stack_b, int size)
 	{
 		if (tmp->i < (size / 13) * 12)
 		{
-			smart_rotate(stack_a, tmp->i);
+			smart_rotate_a(stack_a, tmp->i);
 			pb(stack_a, stack_b);
 			update_pos(stack_a);
 			tmp = *stack_a;

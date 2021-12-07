@@ -6,7 +6,7 @@
 /*   By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 19:29:03 by lzylberm          #+#    #+#             */
-/*   Updated: 2021/12/07 14:03:14 by lzylberm         ###   ########.fr       */
+/*   Updated: 2021/12/07 15:00:21 by lzylberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	chunk1_6(t_list **stack_a, t_list **stack_b, int size)
 	{
 		if (tmp->i < size / 6)
 		{
-			smart_rotate(stack_a, tmp->i);
+			smart_rotate_a(stack_a, tmp->i);
 			pb(stack_a, stack_b);
 			update_pos(stack_a);
 			tmp = *stack_a;
@@ -42,7 +42,7 @@ void	chunk2_6(t_list **stack_a, t_list **stack_b, int size)
 	{
 		if (tmp->i < (size / 6) * 2)
 		{
-			smart_rotate(stack_a, tmp->i);
+			smart_rotate_a(stack_a, tmp->i);
 			pb(stack_a, stack_b);
 			update_pos(stack_a);
 			tmp = *stack_a;
@@ -62,7 +62,7 @@ void	chunk3_6(t_list **stack_a, t_list **stack_b, int size)
 	{
 		if (tmp->i < (size / 6) * 3)
 		{
-			smart_rotate(stack_a, tmp->i);
+			smart_rotate_a(stack_a, tmp->i);
 			pb(stack_a, stack_b);
 			update_pos(stack_a);
 			tmp = *stack_a;
@@ -82,7 +82,7 @@ void	chunk4_6(t_list **stack_a, t_list **stack_b, int size)
 	{
 		if (tmp->i < (size / 6) * 4)
 		{
-			smart_rotate(stack_a, tmp->i);
+			smart_rotate_a(stack_a, tmp->i);
 			pb(stack_a, stack_b);
 			update_pos(stack_a);
 			tmp = *stack_a;
@@ -102,7 +102,7 @@ void	chunk5_6(t_list **stack_a, t_list **stack_b, int size)
 	{
 		if (tmp->i < (size / 6) * 5)
 		{
-			smart_rotate(stack_a, tmp->i);
+			smart_rotate_a(stack_a, tmp->i);
 			pb(stack_a, stack_b);
 			update_pos(stack_a);
 			tmp = *stack_a;

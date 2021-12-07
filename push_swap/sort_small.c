@@ -6,7 +6,7 @@
 /*   By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 19:26:46 by lzylberm          #+#    #+#             */
-/*   Updated: 2021/11/25 13:38:44 by lzylberm         ###   ########.fr       */
+/*   Updated: 2021/12/07 15:01:51 by lzylberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	sort_3(t_list **stack_a)
 void	sort_4(t_list **stack_a, t_list **stack_b)
 {
 	update_pos(stack_a);
-	smart_rotate(stack_a, 0);
+	smart_rotate_a(stack_a, 0);
 	pb(stack_a, stack_b);
 	sort_3(stack_a);
 	pa(stack_a, stack_b);
@@ -52,10 +52,10 @@ void	sort_4(t_list **stack_a, t_list **stack_b)
 void	sort_5(t_list **stack_a, t_list **stack_b)
 {
 	update_pos(stack_a);
-	smart_rotate(stack_a, 0);
+	smart_rotate_a(stack_a, 0);
 	pb(stack_a, stack_b);
 	update_pos(stack_a);
-	smart_rotate(stack_a, 1);
+	smart_rotate_a(stack_a, 1);
 	pb(stack_a, stack_b);
 	sort_3(stack_a);
 	pa(stack_a, stack_b);

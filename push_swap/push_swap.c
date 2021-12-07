@@ -6,22 +6,22 @@
 /*   By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:34:00 by lzylberm          #+#    #+#             */
-/*   Updated: 2021/12/07 14:04:33 by lzylberm         ###   ########.fr       */
+/*   Updated: 2021/12/07 15:35:51 by lzylberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ps.h"
 
-void	print_list(t_list **stack)
+/*void	print_list(t_list **stack)
 {
 	t_list	*tmp = *stack;
-	
+
 	while (tmp)
 	{
 		printf("%d\n", tmp->content);
 		tmp = tmp->next;
 	}
-}
+}*/
 
 t_list	*create_stack(int argc, char **argv)
 {
@@ -69,9 +69,6 @@ int	main(int argc, char **argv)
 		push_chunks_13(&stack_a, &stack_b);
 		push_back_chunks(&stack_a, &stack_b);
 	}
-	//print_list(&stack_a);
-	//printf("\n B : ");
-	//print_list(&stack_b);
 	ft_lstclear(&stack_a);
 	ft_lstclear(&stack_b);
 	return (0);

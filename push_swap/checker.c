@@ -6,7 +6,7 @@
 /*   By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 15:46:17 by lzylberm          #+#    #+#             */
-/*   Updated: 2021/12/07 14:42:22 by lzylberm         ###   ########.fr       */
+/*   Updated: 2021/12/07 19:40:02 by lzylberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	exec_instruct(t_list **stack_a, t_list **stack_b, t_list *instruct)
 			ss_s(stack_a, stack_b);
 		else if (instruct->content == 6)
 			ra_s(stack_a);
-		else if (instruct->content > 7)
+		else if (instruct->content > 6)
 			exec_instruct_2(stack_a, stack_b, instruct);
 		instruct = instruct->next;
 	}
@@ -107,5 +107,7 @@ int	main(int argc, char **argv)
 		exec_instruct(&stack_a, &stack_b, instruct);
 		check_sort(stack_a, stack_b);
 	}
+	ft_lstclear(&stack_a);
+	ft_lstclear(&stack_b);
 	return (0);
 }

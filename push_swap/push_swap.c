@@ -6,22 +6,11 @@
 /*   By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:34:00 by lzylberm          #+#    #+#             */
-/*   Updated: 2021/12/07 17:53:09 by lzylberm         ###   ########.fr       */
+/*   Updated: 2021/12/07 17:58:46 by lzylberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ps.h"
-
-void	print_list(t_list **stack)
-{
-	t_list	*tmp = *stack;
-
-	while (tmp)
-	{
-		printf("%d\n", tmp->content);
-		tmp = tmp->next;
-	}
-}
 
 t_list	*create_stack(int argc, char **argv)
 {

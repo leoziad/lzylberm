@@ -6,7 +6,7 @@
 #    By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/23 16:17:25 by lzylberm          #+#    #+#              #
-#    Updated: 2021/11/26 15:42:15 by lzylberm         ###   ########.fr        #
+#    Updated: 2021/12/08 11:34:06 by lzylberm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,30 +18,32 @@ OBJS_CHECKER	= $(SRCS_CHECKER:.c=.o)
 
 OBJS_PS			= $(SRCS_PS:.c=.o)
 
+VPATH			= src:src/gnl:src/checker:src/chunks
+
 NAME			= push_swap
 
 CHECKER			= checker
 
-CC			= gcc
+CC				= gcc
 
-RM			= rm -f
+RM				= rm -f
 
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS			= -Wall -Wextra -Werror
 
-all:		$(NAME) $(CHECKER)
+all:			$(NAME) $(CHECKER)
 
-checker:	$(OBJS_CHECKER)
-			CC -o $(CHECKER) $(OBJS_CHECKER)
-
-$(NAME):	$(OBJS_PS)
-			CC -o $(NAME) $(OBJS_PS)
+checker:		$(OBJS_CHECKER)
+				@CC -o $(CHECKER) $(OBJS_CHECKER)
+	
+$(NAME):		$(OBJS_PS)
+				@CC -o $(NAME) $(OBJS_PS)
 
 clean:
-			$(RM) $(OBJS_CHECKER) $(OBJS_PS)
+				@$(RM) $(OBJS_CHECKER) $(OBJS_PS)
 
-fclean:		clean
-			$(RM) $(NAME) $(CHECKER)
+fclean:			clean
+				@$(RM) $(NAME) $(CHECKER)
 
-re:			fclean all
+re:				fclean all
 
-.PHONY:		all clean fclean re
+.PHONY:			all clean fclean re

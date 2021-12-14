@@ -6,7 +6,7 @@
 /*   By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 13:53:24 by lzylberm          #+#    #+#             */
-/*   Updated: 2021/11/26 18:45:49 by lzylberm         ###   ########.fr       */
+/*   Updated: 2021/12/14 19:36:36 by lzylberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,17 @@ void	create_index(t_list **stack)
 	t_list	*tmp;
 
 	index = malloc(sizeof(int) * ft_lstsize(*stack));
+	if (!index)
+		return ;
 	tmp = *stack;
 	i = 0;
-	while (tmp->next != NULL)
+	while (tmp)
 	{
 		index[i] = tmp->content;
 		i++;
 		tmp = tmp->next;
 	}
-	index[i] = tmp->content;
-	ft_sort_int_tab(index, i + 1);
+	ft_sort_int_tab(index, i);
 	i = 0;
 	tmp = *stack;
 	while (tmp->next != NULL)

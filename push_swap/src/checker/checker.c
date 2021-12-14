@@ -6,18 +6,19 @@
 /*   By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 15:46:17 by lzylberm          #+#    #+#             */
-/*   Updated: 2021/12/07 19:40:02 by lzylberm         ###   ########.fr       */
+/*   Updated: 2021/12/14 19:27:23 by lzylberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ps.h"
 
-t_list	*create_stack(int argc, char **argv)
+static t_list	*create_stack(int argc, char **argv)
 {
 	t_list	*stack;
 	int		i;
 
 	i = 2;
+	stack = NULL;
 	stack = ft_lstnew(ft_atoi(argv[1], &stack));
 	while (i < argc)
 	{
@@ -38,8 +39,9 @@ t_list	*list_instruct(char *line, t_list **stack_a)
 		return (list_instruct_r(line, stack_a));
 	else
 	{
-		ft_lstclear(stack_a);
 		write(0, "Error\n", 6);
+		if (*stack_a)
+			ft_lstclear(stack_a);
 		exit(0);
 	}
 }
@@ -64,9 +66,10 @@ void	exec_instruct(t_list **stack_a, t_list **stack_b, t_list *instruct)
 			exec_instruct_2(stack_a, stack_b, instruct);
 		instruct = instruct->next;
 	}
+	ft_lstclear(&instruct);
 }
 
-void	check_sort(t_list *stack_a, t_list *stack_b)
+static void	check_sort(t_list *stack_a, t_list *stack_b)
 {
 	int	i;
 
@@ -103,6 +106,7 @@ int	main(int argc, char **argv)
 			if (line[0] == '\0')
 				break ;
 			ft_lstadd_back(&instruct, list_instruct(line, &stack_a));
+			free(line);
 		}
 		exec_instruct(&stack_a, &stack_b, instruct);
 		check_sort(stack_a, stack_b);

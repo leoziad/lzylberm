@@ -6,11 +6,20 @@
 /*   By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 19:26:46 by lzylberm          #+#    #+#             */
-/*   Updated: 2021/12/07 15:01:51 by lzylberm         ###   ########.fr       */
+/*   Updated: 2021/12/14 19:19:14 by lzylberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ps.h"
+
+void	sort_2(t_list **stack_a)
+{
+	t_list	*stack;
+
+	stack = *stack_a;
+	if ((*stack).i > (*stack).next->i)
+		sa(stack_a);
+}
 
 void	sort_3(t_list **stack_a)
 {

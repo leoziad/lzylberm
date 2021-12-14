@@ -6,28 +6,18 @@
 /*   By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:37:35 by lzylberm          #+#    #+#             */
-/*   Updated: 2021/12/07 19:21:17 by lzylberm         ###   ########.fr       */
+/*   Updated: 2021/12/14 19:29:08 by lzylberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ps.h"
 
-char	*ft_strnew(size_t size)
+void	clear(t_list *stack)
 {
-	char	*str;
-	size_t	i;
-
-	i = 0;
-	str = (char *)malloc(sizeof(*str) * size + 1);
-	if (str == NULL)
-		return (NULL);
-	while (i < size)
-	{
-		str[i] = '0';
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
+	if (stack)
+		ft_lstclear(&stack);
+	write(0, "Error\n", 6);
+	exit(0);
 }
 
 int	ft_atoi(const char *str, t_list **stack)
@@ -51,11 +41,7 @@ int	ft_atoi(const char *str, t_list **stack)
 	}
 	if ((sign == -1 && result > 2147483648)
 		|| (sign == 1 && result > 2147483647) || !str[0] || str[index])
-	{
-		ft_lstclear(stack);
-		write(0, "Error\n", 6);
-		exit(0);
-	}
+		clear(*stack);
 	return ((int)result * sign);
 }
 
@@ -92,11 +78,7 @@ void	duplicates(t_list **stack)
 		{
 			tmp2 = tmp2->next;
 			if (tmp2->content == tmp1->content)
-			{
-				ft_lstclear(stack);
-				write(0, "Error\n", 6);
-				exit(0);
-			}
+				clear(*stack);
 		}
 		tmp1 = tmp1->next;
 	}

@@ -6,7 +6,7 @@
 #    By: lzylberm <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/23 16:17:25 by lzylberm          #+#    #+#              #
-#    Updated: 2021/12/08 11:34:06 by lzylberm         ###   ########.fr        #
+#    Updated: 2021/12/14 19:05:47 by lzylberm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ OBJS_PS			= $(SRCS_PS:.c=.o)
 
 VPATH			= src:src/gnl:src/checker:src/chunks
 
-NAME			= push_swap
+PS			= push_swap
 
 CHECKER			= checker
 
@@ -30,19 +30,22 @@ RM				= rm -f
 
 CFLAGS			= -Wall -Wextra -Werror
 
-all:			$(NAME) $(CHECKER)
+all:			$(PS)
 
 checker:		$(OBJS_CHECKER)
 				@CC -o $(CHECKER) $(OBJS_CHECKER)
+
+bonus:			$(PS) $(OBJS_CHECKER)
+				@CC -o $(CHECKER) $(OBJS_CHECKER) && CC -o $(PS) $(OBJS_PS)
 	
-$(NAME):		$(OBJS_PS)
-				@CC -o $(NAME) $(OBJS_PS)
+$(PS):			$(OBJS_PS)
+				@CC -o $(PS) $(OBJS_PS)
 
 clean:
 				@$(RM) $(OBJS_CHECKER) $(OBJS_PS)
 
 fclean:			clean
-				@$(RM) $(NAME) $(CHECKER)
+				@$(RM) $(PS) $(CHECKER)
 
 re:				fclean all
 

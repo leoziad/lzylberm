@@ -1,13 +1,13 @@
 #include "Include/philosophers.h"
 
-int	ft_strlen(char *str)
+size_t	ft_strlen(char *str)
 {
-	int	i;
+	size_t	len;
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+	len = 0;
+	while (str[len])
+		len++;
+	return (len);
 }
 
 int	ft_check_number_size(char *str)
@@ -24,12 +24,12 @@ int	ft_check_number_size(char *str)
 
 int	ft_atoi(char *str)
 {
-	int	res;
+	int	result;
 	int	sign;
 
-	if (ft_check_number_size(str) == 1)
+	if (ft_check_number_size(str))
 		return (-1);
-	res = 0;
+	result = 0;
 	sign = 1;
 	while ((*str == ' ') || (*str >= '\t' && *str <= '\r'))
 		str++;
@@ -41,10 +41,10 @@ int	ft_atoi(char *str)
 	}
 	while (*str >= '0' && *str <= '9')
 	{
-		res = 10 * res + (*str - '0');
+		result = result * 10 + (*str - '0');
 		str++;
 	}
-	return (res * sign);
+	return (result * sign);
 }
 
 int	ft_is_digit(char *str)
@@ -55,9 +55,7 @@ int	ft_is_digit(char *str)
 	while (str[i])
 	{
 		if (str[i] < '0' || str[i] > '9')
-		{
 			return (0);
-		}
 		i++;
 	}
 	return (1);

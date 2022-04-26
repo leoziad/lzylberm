@@ -2,15 +2,14 @@
 
 void	ft_destroy_mutex(t_philo *philo)
 {
-	free(philo->params->forks_mutex);
-	free(philo->params->lock);
+	free(philo->params->master_lock);
 }
 
 void	ft_one_philo(t_philo *philo)
 {
 	if (philo->params->philo_nbr == 1)
 	{
-		ft_display(philo, TOOK_FORK);
+		ft_print(philo, TOOK_FORK);
 		ft_usleep(philo->params->time_to_die, philo);
 		ft_philo_kill(philo);
 		ft_destroy_mutex(philo);
@@ -19,13 +18,13 @@ void	ft_one_philo(t_philo *philo)
 
 int	ft_get_status(t_philo *philo)
 {
-	pthread_mutex_lock(philo->params->forks_mutex);
+	pthread_mutex_lock(philo->params->master_lock);
 	if (philo->params->status != ALIVE)
 	{
-		pthread_mutex_unlock(philo->params->forks_mutex);
+		pthread_mutex_unlock(philo->params->master_lock);
 		return (DEAD);
 	}
-	pthread_mutex_unlock(philo->params->forks_mutex);
+	pthread_mutex_unlock(philo->params->master_lock);
 	return (ALIVE);
 }
 

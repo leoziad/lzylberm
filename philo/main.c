@@ -1,6 +1,6 @@
 #include "Include/philosophers.h"
 
-static void	ft_check(t_philo *philo, int count_ok, int i)
+static void	ft_monitor(t_philo *philo, int count_ok, int i)
 {
 	while (1)
 	{
@@ -8,34 +8,34 @@ static void	ft_check(t_philo *philo, int count_ok, int i)
 		i = -1;
 		while (++i < philo->params->philo_nbr)
 		{
-			pthread_mutex_lock(philo[i].params->forks_mutex);
-			if (philo[i].meal_count == philo[i].must_eat)
+			pthread_mutex_lock(philo[i].params->master_lock);
+			if (philo[i].eat_count == philo[i].must_eat)
 			{
 				++count_ok;
 				if (count_ok == philo->params->philo_nbr)
 				{
-					if (ft_philo_check_dead(&philo[i]))
+					if (ft_check_death(&philo[i]))
 						return ;
-					pthread_mutex_unlock(philo[i].params->forks_mutex);
+					pthread_mutex_unlock(philo[i].params->master_lock);
 					return ;
 				}
 			}
-			if (ft_philo_check_dead(&philo[i]))
+			if (ft_check_death(&philo[i]))
 				return ;
-			pthread_mutex_unlock(philo[i].params->forks_mutex);
+			pthread_mutex_unlock(philo[i].params->master_lock);
 		}
 		usleep(7000);
 	}	
 }
 
-void	*ft_routine(void *philo_void)
+void	*ft_routine(void *philo_ptr)
 {
 	t_philo		*philo;
 
-	philo = (t_philo *)philo_void;
+	philo = (t_philo *)philo_ptr;
 	while (ft_get_status(philo) == ALIVE)
 	{
-		if (philo->meal_count == philo->must_eat)
+		if (philo->eat_count == philo->must_eat)
 			return (NULL);
 		ft_eat(philo);
 		if (ft_get_status(philo) != ALIVE)
@@ -43,7 +43,7 @@ void	*ft_routine(void *philo_void)
 		ft_sleep(philo);
 		if (ft_get_status(philo) != ALIVE)
 			return (NULL);
-		ft_display(philo, THINKING);
+		ft_print(philo, THINKING);
 		if (ft_get_status(philo) != ALIVE)
 			return (NULL);
 		usleep(7000);
@@ -51,7 +51,7 @@ void	*ft_routine(void *philo_void)
 	return (NULL);
 }
 
-void	ft_execute_philo(t_philo *philo)
+void	ft_create_philo(t_philo *philo)
 {
 	int	i;
 
@@ -77,17 +77,17 @@ void	ft_execute_philo(t_philo *philo)
 					ft_routine, &philo[i]) != 0)
 				return ;
 	}
-	ft_check(philo, 0, -1);
+	ft_monitor(philo, 0, -1);
 }
 
 void	ft_init_thread(t_philo *philo)
 {
-	int			i;
+	int		i;
 
 	i = 0;
 	if (!philo)
 		return ;
-	ft_execute_philo(philo);
+	ft_create_philo(philo);
 	if (philo->params->philo_nbr == 1)
 	{
 		free(philo);
@@ -103,26 +103,26 @@ void	ft_init_thread(t_philo *philo)
 		free(philo);
 }
 
-int	main(int ac, char **av)
+int	main(int argc, char **argv)
 {	
 	t_params	*params;
 	t_philo		*philo;
 
 	params = malloc(sizeof(t_params));
-	if (ac < 5 || ac > 6)
-		return (ft_display_error("Nombre d'arguments"));
-	if (ft_check_error(av))
+	if (argc < 5 || argc > 6)
+		return (ft_print_error("Incorrect number of arguments"));
+	if (ft_check_error(argv))
 	{
-		ft_display_error("Mauvais arguments");
+		ft_print_error("Bad arguments");
 		return (1);
 	}
-	if (ac == 5)
-		philo = ft_init_all(&params, av);
-	else if (ac == 6)
-		philo = ft_init_all2(&params, av);
-	if (philo == 0)
+	if (argc == 5)
+		philo = ft_init_all(&params, argv);
+	else if (argc == 6)
+		philo = ft_init_all2(&params, argv);
+	if (!philo)
 	{
-		ft_display_error("Mauvaises valeurs d'arguments");
+		ft_print_error("Bad arguments");
 		return (1);
 	}
 	ft_init_thread(philo);

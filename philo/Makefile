@@ -3,15 +3,17 @@ SOURCES =	main.c \
 			philosophers_utils2.c \
 			init.c \
 			forks.c \
-			display.c \
+			print.c \
 			error.c
 
 OBJS = $(SOURCES:.c=.o)
 
 CC = gcc
+
 CFLAGS = -Wall -Wextra -Werror -I. -fsanitize=thread
-LIBNAME = philosophers.a
+
 NAME = philo
+
 HEADER = philosophers.h
 
 # make -C -Idir Include ?
